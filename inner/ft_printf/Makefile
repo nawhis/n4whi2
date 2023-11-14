@@ -1,39 +1,39 @@
 NAME = libftprintf.a
-SRCS = ft_printf.c ft_printf_utils.c ft_print_char.c ft_print_str.c ft_print_nums.c ft_print_unums.c ft_print_addr.c ft_print_hex.c
-OBJS = $(SRCS:.c=.o)
-TMP_FILE = make_man make_bon
-HEADER = ft_printf.h
+SRCS_MAN = ft_printf.c ft_printf_utils.c ft_print_char.c ft_print_str.c ft_print_nums.c ft_print_unums.c ft_print_addr.c ft_print_hex.c
+SRCS_BON = ft_printf_bonus.c ft_printf_utils_bonus.c ft_print_char_bonus.c ft_print_str_bonus.c ft_print_nums_bonus.c ft_print_unums_bonus.c ft_print_addr_bonus.c ft_print_hex_bonus.c 
+OBJS_MAN = $(SRCS_MAN:.c=.o)
+OBJS_BON = $(SRCS_BON:.c=.o)
+HEADER_MAN = ft_printf.h
+HEADER_BON = ft_printf_bonus.h
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 AR = ar
 ARFLAGS = rcs
 
-# ifdef WITH_BONUS
-# 	OBJS = $(OBJS) $(OBJS_BONUS)
-# else
-# 	OBJS = $(OBJS)
+ifdef BONUS
+	OBJ_FILE = $(OBJS_BON)
+else
+	OBJ_FILE = $(OBJS_MAN)
+endif
 
 all : $(NAME)
-bonus : $(NAME) make_bon
 
-$(NAME) : $(OBJS)
-	$(AR) $(ARFLAGS) $@ $^
-	touch make_man
-
-make_bon : $(OBJS) $(OBJS_BON)
-	$(AR) $(ARFLAGS) $(NAME) $^
-	touch make_man $@
+bonus : 
+	make BONUS=1
 
 clean :
-	rm -f $(OBJS)
+	rm -f $(OBJS_MAN)
 	rm -f $(OBJS_BON)
-	rm -f $(TMP_FILE)
 
 fclean : clean
 	rm -f $(NAME)
 
+$(NAME) : $(OBJ_FILE)
+	$(AR) $(ARFLAGS) $@ $^
+
 %.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
+
 
 re : fclean all
 
