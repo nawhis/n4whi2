@@ -6,7 +6,7 @@
 /*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 19:17:03 by sihwan            #+#    #+#             */
-/*   Updated: 2023/11/13 17:49:04 by sihwan           ###   ########.fr       */
+/*   Updated: 2023/11/14 02:12:06 by sihwan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char	*ft_unumtostr(unsigned int num, size_t *len, s_option *opt)
 		*len = opt->width;
 	size = *len;
 	nums = ft_write_unum(num, size);
+	if (!nums)
+		return (0);
 	if (!nums [0])
 	{
 		if (opt->flag[1])

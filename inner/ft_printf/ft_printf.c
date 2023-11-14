@@ -6,7 +6,7 @@
 /*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 02:04:29 by sihwan            #+#    #+#             */
-/*   Updated: 2023/11/13 21:35:27 by sihwan           ###   ########.fr       */
+/*   Updated: 2023/11/14 02:07:52 by sihwan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ s_string	*ft_init_str(void)
 	str = (s_string *)ft_calloc(sizeof(s_string), 1);
 	if (!str)
 		return (0);
+	str->max = 1024;
 	str->array = (char *)ft_calloc(sizeof(char), str->max);
 	if (!str->array)
 	{
 		free(str);
 		return (0);
 	}
-	str->max = 1024;
 	return (str);
 }
 
@@ -106,8 +106,8 @@ char	*ft_check_flag(char *format, s_option *opt)
 		}
 		else
 		{
-			while (*(++format) >= '0' && *format <= '9')
-				opt->width = opt->width * 10 + *format - '0';
+			while (*format >= '0' && *format <= '9')
+				opt->width = opt->width * 10 + *format++ - '0';
 			format--;
 		}
 		format++;
@@ -120,18 +120,18 @@ ssize_t	ft_fs(char *format, va_list *args, s_string *str, s_option *opt)
 	ssize_t	ret;
 
 	ret = 1;
-	if (*format == 'c' )
-		ret = ft_putchar(va_arg(*args, int), opt, str);
-	else if (*format == 's')
-		ret = ft_putstr(va_arg(*args, char *), opt, str);
-	else if (*format == 'd' || *format == 'i')
+	if (*format == 'd' || *format == 'i')
 		ret = ft_putnbr(va_arg(*args, int), opt, str);
-	else if (*format == 'u')
-		ret = ft_putunbr(va_arg(*args, unsigned int), opt, str);
 	else if (*format == 'x')
 		ret = ft_puthex(va_arg(*args, unsigned int), opt, str, 'x');
 	else if (*format == 'X')
 		ret = ft_puthex(va_arg(*args, unsigned int), opt, str, 'X');
+	else if (*format == 's')
+		ret = ft_putstr(va_arg(*args, char *), opt, str);
+	else if (*format == 'c' )
+		ret = ft_putchar(va_arg(*args, int), opt, str);
+	else if (*format == 'u')
+		ret = ft_putunbr(va_arg(*args, unsigned int), opt, str);
 	else if (*format == 'p')
 		ret = ft_putaddr(va_arg(*args, void *), opt, str);
 	else if (*format == '%')
@@ -139,11 +139,10 @@ ssize_t	ft_fs(char *format, va_list *args, s_string *str, s_option *opt)
 	return (ret);
 }
 
-#include <stdio.h>
-#include <limits.h>
-int main()
-{
-	char s2[] = "Mussum Ipsum, cacilds vidis litro abertis. Posuere libero varius. Nullam a nisl ut ante blandit hendrerit. Aenean sit amet nisi. Atirei o pau no gatis, per gatis num morreus.";
-	printf("|%d|", printf(" %s %s %s %s %s", " - ", "", "4", "", s2));
-	printf("|%d|", ft_printf(" %s %s %s %s %s", " - ", "", "4", "", s2));
-}
+// #include <stdio.h>
+// #include <limits.h>
+// int main()
+// {
+// 	printf("|%d|", printf("printf   :|%-+.d, %-+.d, %-+.d, %-+.d, %-+.d, %-+.d, %-+.d, %-+.d,|\n",0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));
+// 	printf("|%d|", ft_printf("ft_printf:|%-+.d, %-+.d, %-+.d, %-+.d, %-+.d, %-+.d, %-+.d, %-+.d,|\n",0, 5, -1, -10, 100, -1862, INT_MIN, INT_MAX));
+// }

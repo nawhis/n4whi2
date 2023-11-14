@@ -6,7 +6,7 @@
 /*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:32:09 by sihwan            #+#    #+#             */
-/*   Updated: 2023/11/13 16:19:02 by sihwan           ###   ########.fr       */
+/*   Updated: 2023/11/14 02:12:08 by sihwan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ char	*ft_numtostr(int num, size_t *len, s_option *opt)
 		*len = opt->width;
 	size = *len;
 	nums = ft_write_num(num, size);
+	if (!nums)
+		return (0);
 	if (!nums[0])
 	{
 		if (opt->flag[1])
