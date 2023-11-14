@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_nums.c                                    :+:      :+:    :+:   */
+/*   ft_print_nums_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:32:09 by sihwan            #+#    #+#             */
-/*   Updated: 2023/11/14 16:55:11 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/11/14 16:55:10 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 char	*ft_write_num(int num, ssize_t size)
 {
