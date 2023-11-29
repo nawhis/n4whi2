@@ -1,1 +1,1 @@
-echo "This is test\n";
+echo "This is test";
