@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 19:17:03 by sihwan            #+#    #+#             */
-/*   Updated: 2023/11/14 16:55:12 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/11/15 14:34:58 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,16 @@ char	*ft_write_unum(unsigned int num, ssize_t size)
 char	*ft_unumtostr(unsigned int num, size_t *len, t_option *opt)
 {
 	char	*nums;
-	ssize_t	size;
 
 	if (*len < opt->prec)
-		*len += (opt->prec - *len);
+		*len = opt->prec;
 	if (opt->flag[1] || opt->flag[3])
 		(*len)++;
 	if (num < 0 && !(opt->flag[1] || opt->flag[3]))
 		(*len)++;
 	if (opt->width > *len && !opt->flag[0] && opt->flag[2])
 		*len = opt->width;
-	size = *len;
-	nums = ft_write_unum(num, size);
+	nums = ft_write_unum(num, *len);
 	if (!nums)
 		return (0);
 	if (!nums [0])
@@ -78,7 +76,6 @@ char	*ft_unumtostr(unsigned int num, size_t *len, t_option *opt)
 int	ft_putunbr(unsigned int num, t_option *opt, t_string *str)
 {
 	size_t	len;
-	size_t	size;
 	char	*nums;
 
 	if (opt->flag[2] && opt->flag[5])
@@ -87,8 +84,7 @@ int	ft_putunbr(unsigned int num, t_option *opt, t_string *str)
 	nums = ft_unumtostr(num, &len, opt);
 	if (!nums)
 		return (0);
-	size = ft_check_size(len, opt);
-	if (!ft_check_realloc(str, size))
+	if (!ft_check_realloc(str, len))
 		return (0);
 	if (!opt->flag[0])
 		ft_fill_no_minus(nums, str, opt, len);

@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 17:32:09 by sihwan            #+#    #+#             */
-/*   Updated: 2023/11/14 16:55:10 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/11/14 21:07:00 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,17 @@ char	*ft_write_num(int num, ssize_t size)
 
 char	*ft_numtostr(int num, size_t *len, t_option *opt)
 {
-	ssize_t	size;
 	char	*nums;
 
 	if (*len < opt->prec)
-		*len += (opt->prec - *len);
+		*len = opt->prec;
 	if (opt->flag[1] || opt->flag[3])
 		(*len)++;
 	if (num < 0 && !(opt->flag[1] || opt->flag[3]))
 		(*len)++;
 	if (opt->width > *len && !opt->flag[0] && opt->flag[2])
 		*len = opt->width;
-	size = *len;
-	nums = ft_write_num(num, size);
+	nums = ft_write_num(num, *len);
 	if (!nums)
 		return (0);
 	if (!nums[0])
@@ -123,7 +121,6 @@ void	ft_fill_no_minus(char *nums, t_string *str, t_option *opt, size_t len)
 int	ft_putnbr(int num, t_option *opt, t_string *str)
 {
 	size_t	len;
-	size_t	size;
 	char	*nums;
 
 	if (opt->flag[2] && opt->flag[5])
@@ -132,8 +129,7 @@ int	ft_putnbr(int num, t_option *opt, t_string *str)
 	nums = ft_numtostr(num, &len, opt);
 	if (!nums)
 		return (0);
-	size = ft_check_size(len, opt);
-	if (!ft_check_realloc(str, size))
+	if (!ft_check_realloc(str, len))
 	{
 		free(nums);
 		return (0);

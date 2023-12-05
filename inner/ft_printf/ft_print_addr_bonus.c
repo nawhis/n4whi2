@@ -6,15 +6,15 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 13:45:59 by sihwan            #+#    #+#             */
-/*   Updated: 2023/11/14 16:55:03 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/11/14 20:57:01 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-int	ft_addrsize(unsigned long long addr)
+size_t	ft_addrsize(unsigned long long addr)
 {
-	int	len;
+	size_t	len;
 
 	len = 0;
 	if (!addr)

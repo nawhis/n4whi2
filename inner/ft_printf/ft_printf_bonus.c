@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 02:04:29 by sihwan            #+#    #+#             */
-/*   Updated: 2023/11/14 16:55:13 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/11/14 21:08:11 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,10 @@ char	*ft_check_flag(char *format, t_option *opt)
 			opt->flag[3] = 1;
 		else if (*format == '#')
 			opt->flag[4] = 1;
-		else
+		else if (*format == '.' || (*format >= '0' && *format <= '9'))
 			format = ft_treat_num(format, opt);
+		else
+			break ;
 		format++;
 	}
 	return (format);
@@ -125,5 +127,7 @@ ssize_t	ft_fs(char *format, va_list *args, t_string *str, t_option *opt)
 		ret = ft_putaddr(va_arg(*args, void *), opt, str);
 	else if (*format == '%')
 		ret = ft_putchar('%', opt, str);
+	else
+		ret = 0;
 	return (ret);
 }

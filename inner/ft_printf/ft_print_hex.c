@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 19:57:25 by sihwan            #+#    #+#             */
-/*   Updated: 2023/11/14 16:55:09 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/11/14 21:14:55 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ char	*ft_write_hex(t_option *opt, unsigned int num, ssize_t size, char *xX)
 char	*ft_hextostr(unsigned int num, size_t *len, t_option *opt)
 {
 	char	*nums;
-	size_t	size;
 
 	if (opt->flag[5] && !opt->prec && num == 0)
 	{
@@ -67,23 +66,21 @@ char	*ft_hextostr(unsigned int num, size_t *len, t_option *opt)
 		return ((char *)ft_calloc(sizeof(char), 1));
 	}
 	if (*len < opt->prec)
-		*len += (opt->prec - *len);
+		*len = opt->prec;
 	if (opt->flag[4])
 		(*len) += 2;
 	if (*len < opt->width && opt->flag[2])
-		*len += (opt->width - *len);
-	size = *len;
+		*len = opt->width;
 	if (opt->flag[6] == 'x')
-		nums = ft_write_hex(opt, num, size, "0123456789abcdef");
+		nums = ft_write_hex(opt, num, *len, "0123456789abcdef");
 	else
-		nums = ft_write_hex(opt, num, size, "0123456789ABCDEF");
+		nums = ft_write_hex(opt, num, *len, "0123456789ABCDEF");
 	return (nums);
 }
 
 int	ft_puthex(unsigned int num, t_option *opt, t_string *str, char xX)
 {
 	size_t	len;
-	size_t	size;
 	char	*nums;
 
 	opt->flag[6] = xX;
@@ -95,8 +92,7 @@ int	ft_puthex(unsigned int num, t_option *opt, t_string *str, char xX)
 	nums = ft_hextostr(num, &len, opt);
 	if (!nums)
 		return (0);
-	size = ft_check_size(len, opt);
-	if (!ft_check_realloc(str, size))
+	if (!ft_check_realloc(str, len))
 	{
 		free(nums);
 		return (0);
