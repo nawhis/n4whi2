@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:48:58 by sihkang           #+#    #+#             */
-/*   Updated: 2023/11/14 20:56:46 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/12/13 17:17:14 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef FT_PRINTF_BONUS_H
+# define FT_PRINTF_BONUS_H
 # include <stdarg.h>
 # include <stddef.h>
 # include <stdlib.h>
@@ -39,7 +39,7 @@ char			*ft_strchr(const char *s, int c);
 void			*ft_calloc(size_t size, size_t count);
 size_t			ft_check_size(size_t len, t_option *opt);
 char			*ft_treat_num(char *format, t_option *opt);
-int				ft_putchar(char c, t_option *opt, t_string *str);
+int				ft_putchar_pf(char c, t_option *opt, t_string *str);
 int				ft_putstr(char *s, t_option *opt, t_string *str);
 void			ft_str_width(t_string *str, char *s, t_option *opt, size_t len);
 void			ft_str_len(t_string *str, char *s, size_t len);

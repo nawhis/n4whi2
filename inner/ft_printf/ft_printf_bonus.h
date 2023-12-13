@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:48:58 by sihkang           #+#    #+#             */
-/*   Updated: 2023/11/14 16:55:13 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/11/14 20:56:55 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int				ft_putstr(char *s, t_option *opt, t_string *str);
 void			ft_str_width(t_string *str, char *s, t_option *opt, size_t len);
 void			ft_str_len(t_string *str, char *s, size_t len);
 int				ft_putaddr(void *ad, t_option *opt, t_string *str);
-int				ft_addrsize(unsigned long long addr);
+size_t			ft_addrsize(unsigned long long addr);
 void			ft_write_addr(t_string *str, unsigned long long addr, \
 size_t len);
 void			ft_width_bigger(t_string *str, t_option *opt, \
