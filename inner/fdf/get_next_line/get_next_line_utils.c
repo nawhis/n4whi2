@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 16:12:34 by sihkang           #+#    #+#             */
-/*   Updated: 2023/12/13 17:08:36 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/12/13 20:04:23 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ t_list	*ft_find_node(t_list *head, int fd)
 			return (node->next);
 		node = node->next;
 	}
-	node->next = (t_list *)ft_calloc(sizeof(t_list), 1);
+	node->next = (t_list *)ft_calloc_gnl(sizeof(t_list), 1);
 	if (!node->next)
 		return (0);
-	node->next->buf = (char *)ft_calloc(sizeof(char), (BUFFER_SIZE + 1));
-	node->next->buf_info = (long long *)ft_calloc(sizeof(long long), 3);
+	node->next->buf = (char *)ft_calloc_gnl(sizeof(char), (BUFFER_SIZE + 1));
+	node->next->buf_info = (long long *)ft_calloc_gnl(sizeof(long long), 3);
 	if (!(node->next->buf_info) || !(node->next->buf))
 	{
 		free(node->next->buf);
@@ -122,7 +122,7 @@ char	*ft_realloc_gnl(char *str, size_t str_index, size_t	*str_max, int option)
 	return (newstr);
 }
 
-void	*ft_calloc(size_t size, size_t count)
+void	*ft_calloc_gnl(size_t size, size_t count)
 {
 	void	*mem;
 	size_t	index;

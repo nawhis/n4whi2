@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 13:27:28 by sihkang           #+#    #+#             */
-/*   Updated: 2023/12/13 17:08:09 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/12/13 20:04:25 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ char	*ft_make_str(t_list *node, char *str, size_t str_index, size_t str_max);
 t_list	*ft_find_node(t_list *head, int fd);
 char	*get_next_line(int fd);
 char	*ft_realloc_gnl(char *str, size_t str_index, size_t	*str_max, int option);
-void	*ft_calloc(size_t size, size_t count);
+void	*ft_calloc_gnl(size_t size, size_t count);
 
 #endif
