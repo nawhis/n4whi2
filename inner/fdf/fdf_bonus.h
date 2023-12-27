@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF.h                                              :+:      :+:    :+:   */
+/*   fdf_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 16:29:37 by sihkang           #+#    #+#             */
-/*   Updated: 2023/12/27 18:46:50 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2023/12/27 17:34:46 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef FDF_BONUS_H
+# define FDF_BONUS_H
 
 # include "mlx.h"
 # include <math.h>
@@ -66,7 +66,6 @@ void	ft_maptoarr(t_mapinfo *maps, char *map_elem, int x, int y);
 void	ft_readmap(t_mlx *ptrs, t_mapinfo *maps, int projection_method);
 void	ft_starting(t_mapinfo *maps);
 int		ft_mapsize(char *map_argv, int *map_size);
-void	ft_validmap(char *map_argv, int fd);
 int		ft_exit(void);
 void	ft_zoomin(t_param *param);
 void	ft_zoomout(t_param *param);

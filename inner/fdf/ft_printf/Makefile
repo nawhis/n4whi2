@@ -16,8 +16,8 @@ AR = ar
 ARFLAGS = rcs
 
 ifdef BONUS
-	OBJ_FILE = $(OBJS_BON)
-	HEADER = $(HEADER_BON)
+	OBJ_FILE = $(OBJS_MAN)
+	HEADER = $(HEADER_MAN)
 else
 	OBJ_FILE = $(OBJS_MAN)
 	HEADER = $(HEADER_MAN)
@@ -32,7 +32,7 @@ $(NAME) : $(OBJ_FILE)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 bonus :
-	make BONUS=1
+	make
 
 clean :
 	rm -f $(OBJS_MAN)
