@@ -74,7 +74,6 @@ void	tf_odd(t_tt *philo_st)
 		pthread_mutex_lock(philo_st->fork_right);
 		pthread_mutex_lock(philo_st->fork_left);
 		printf("%lld %d has taken a fork\n", ms(philo_st->start), philo_st->num);
-		// printf("left : %p, right : %p\n", philo_st->fork_left, philo_st->fork_right);
 		printf("%lld %d is eating\n", ms(philo_st->start), philo_st->num);
 		usleep(philo_st->args[2] * 1000);
 		pthread_mutex_unlock(philo_st->fork_left);
@@ -95,7 +94,6 @@ void	tf_even(t_tt *philo_st)
 		pthread_mutex_lock(philo_st->fork_right);
 		pthread_mutex_lock(philo_st->fork_left);
 		printf("%lld %d has taken a fork\n", ms(philo_st->start), philo_st->num);
-		// printf("left : %p, right : %p\n", philo_st->fork_left, philo_st->fork_right);
 		printf("%lld %d is eating\n", ms(philo_st->start), philo_st->num);
 		usleep(philo_st->args[2] * 1000);
 		pthread_mutex_unlock(philo_st->fork_right);
