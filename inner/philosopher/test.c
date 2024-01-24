@@ -24,6 +24,8 @@ typedef struct s_tt
 	struct timeval 	start;
 	int 			num;
 	int				*args;
+	int				cnt_eat;
+	long long		last_eat;
 }				t_tt;
 
 long long ms(struct timeval start);
@@ -58,10 +60,10 @@ void	*tf(void *arg)
 
 	philo_st = (t_tt *)arg;
 	tmp = philo_st->mutex;
-	if (philo_st->num % 2)
-		tf_odd(philo_st);
-	else
+	if (philo_st->num % 2 == 0 || philo_st->args[0] == philo_st->num)
 		tf_even(philo_st);
+	else
+		tf_odd(philo_st);
 	return (NULL);
 }
 
@@ -75,6 +77,7 @@ void	tf_odd(t_tt *philo_st)
 		pthread_mutex_lock(philo_st->fork_left);
 		printf("%lld %d has taken a fork\n", ms(philo_st->start), philo_st->num);
 		printf("%lld %d is eating\n", ms(philo_st->start), philo_st->num);
+		philo_st->cnt_eat++;
 		usleep(philo_st->args[2] * 1000);
 		pthread_mutex_unlock(philo_st->fork_left);
 		pthread_mutex_unlock(philo_st->fork_right);
@@ -95,9 +98,10 @@ void	tf_even(t_tt *philo_st)
 		pthread_mutex_lock(philo_st->fork_left);
 		printf("%lld %d has taken a fork\n", ms(philo_st->start), philo_st->num);
 		printf("%lld %d is eating\n", ms(philo_st->start), philo_st->num);
+		philo_st->cnt_eat++;
 		usleep(philo_st->args[2] * 1000);
-		pthread_mutex_unlock(philo_st->fork_right);
 		pthread_mutex_unlock(philo_st->fork_left);
+		pthread_mutex_unlock(philo_st->fork_right);
 		printf("%lld %d is sleeping\n", ms(philo_st->start), philo_st->num);
 		usleep(philo_st->args[3] * 1000);
 	}
@@ -131,7 +135,7 @@ int	*get_args(int argc, char **argv)
 	return (args);
 }
 
-void	philo_init(t_tt **st, pthread_mutex_t **fork, int *args)
+void	philo_init(t_tt *st, pthread_mutex_t *fork, int *args)
 {
 	struct timeval	start;
 	int				i;
@@ -140,18 +144,18 @@ void	philo_init(t_tt **st, pthread_mutex_t **fork, int *args)
 	gettimeofday(&start, NULL);
 	while (i < args[0])
 	{
-		st[i]->args = (int *)malloc((sizeof(int) * 5));
-		st[i]->num = i + 1;
-		st[i]->args = args;
-		st[i]->start = start;
-		st[i]->fork_right = fork[i];
+		pthread_mutex_init(&fork[i], NULL);
+		st[i].args = args; 
+		st[i].num = i + 1;
+		st[i].args = args;
+		st[i].start = start;
+		st[i].fork_right = &fork[i];
 		if (i != args[0] - 1)
-			st[i]->fork_left = fork[i + 1];
+			st[i].fork_left = &fork[i + 1];
 		else
-			st[i]->fork_left = fork[0];
-		printf("%d ->", i + 1);
-		printf("left : %p ", &st[i]->fork_left);
-		printf("right : %p\n", &st[i]->fork_right);
+			st[i].fork_left = &fork[0];
+		st[i].cnt_eat = 0;
+		st[i].last_eat = 0;
 		i++;
 	}
 }
@@ -160,9 +164,9 @@ int main(int argc, char **argv)
 {
 	pthread_t		*philo;
 	pthread_mutex_t	mutex;
-	pthread_mutex_t	**fork;
+	pthread_mutex_t	*fork;
 	int				i;
-	t_tt 			**st;
+	t_tt 			*st;
 	int 			*args;
 
 	i = 0;
@@ -170,27 +174,24 @@ int main(int argc, char **argv)
 		return (1);
 	args = get_args(argc, argv);
 	philo = (pthread_t *)malloc(sizeof(pthread_t) * args[0]);
-	st = (t_tt **)malloc(sizeof(t_tt *) * args[0]);
-	while (i < args[0])
-		st[i++] = (t_tt *)malloc(sizeof(t_tt) * 1);
-	fork = (pthread_mutex_t **)malloc(sizeof(pthread_mutex_t *) * args[0]);
-	for (int j = 0; j < args[0]; j++)
-	{
-		fork[j] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
-		pthread_mutex_init(fork[j], NULL);
-	}
+	st = (t_tt *)malloc(sizeof(t_tt) * args[0]);
+	fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t ) * args[0]);
+	for (int i = 0 ; i < args[0]; i++)
+		pthread_mutex_init(&fork[i], NULL);
 	philo_init(st, fork, args);
 	pthread_mutex_init(&mutex, NULL);
 	pthread_mutex_lock(&mutex);
 	i = 0;
 	while (i < args[0])
 	{
-		st[i]->mutex = mutex;
-		pthread_create(&philo[i], NULL, tf, st[i]);
-		usleep(50);
+		st[i].mutex = mutex;
+		pthread_create(&philo[i], NULL, tf, &st[i]);
 		i++;
 	}
 	pthread_mutex_unlock(&mutex);
 	pthread_mutex_destroy(&mutex);
-	while (1){}
+	while (1)
+	{
+		
+	}
 }
