@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:15:53 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/26 15:47:19 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/26 16:45:59 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,14 @@ typedef struct s_data
 {
 	pid_t	philo;
 	int		*args;
+	int		num;
+	sem_t	*forks;
 }	t_data;
 
 int		*get_args(int argc, char **argv);
 int		ft_atoi(const char *str);
+void	*tf(void *arg);
+void	tf_odd(t_data *data);
+void	tf_even(t_data *data);
 
 #endif
