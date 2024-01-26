@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 18:46:14 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/26 11:43:36 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/26 15:50:30 by sihkang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,3 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-void	free_func(pthread_t *philo, t_tt *st, pthread_mutex_t *fork, int *args)
-{
-	free(philo);
-	free(st);
-	free(fork);
-	free(args);
-	return ;
-}
