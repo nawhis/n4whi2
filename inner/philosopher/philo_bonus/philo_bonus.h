@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:15:53 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/26 22:32:07 by sihwan           ###   ########.fr       */
+/*   Updated: 2024/01/27 23:09:34 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 typedef struct s_data
 {
 	pthread_t 		*thrd;
+	pid_t			parent;
 	pid_t			philo;
 	int				*args;
 	int				num;
@@ -35,6 +36,7 @@ typedef struct s_data
 	sem_t			*time_sem;
 	struct timeval 	start;
 	struct timeval	last_eat;
+	int				*is_die;
 }	t_data;
 
 int			*get_args(int argc, char **argv);
@@ -43,11 +45,13 @@ void		*tf(void *arg);
 void		tf_odd(t_data *data);
 void		tf_even(t_data *data);
 void		*malloc2(int size);
+void		message_func_d(t_data *data);
 void		message_func_f(t_data *data);
 void		message_func_e(t_data *data, int time);
 void		message_func_s(t_data *data, int time);
 void		message_func_t(t_data *data);
 long long	timetable(t_data *st);
 void		msleep(long long milisecond);
+long long	time_last_eat(t_data *st);
 
 #endif
