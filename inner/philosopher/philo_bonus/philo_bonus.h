@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:15:53 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/26 16:45:59 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/26 22:32:07 by sihwan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,28 @@
 
 typedef struct s_data
 {
-	pid_t	philo;
-	int		*args;
-	int		num;
-	sem_t	*forks;
+	pthread_t 		*thrd;
+	pid_t			philo;
+	int				*args;
+	int				num;
+	sem_t			*forks;
+	sem_t			*print_sem;
+	sem_t			*time_sem;
+	struct timeval 	start;
+	struct timeval	last_eat;
 }	t_data;
 
-int		*get_args(int argc, char **argv);
-int		ft_atoi(const char *str);
-void	*tf(void *arg);
-void	tf_odd(t_data *data);
-void	tf_even(t_data *data);
+int			*get_args(int argc, char **argv);
+int			ft_atoi(const char *str);
+void		*tf(void *arg);
+void		tf_odd(t_data *data);
+void		tf_even(t_data *data);
+void		*malloc2(int size);
+void		message_func_f(t_data *data);
+void		message_func_e(t_data *data, int time);
+void		message_func_s(t_data *data, int time);
+void		message_func_t(t_data *data);
+long long	timetable(t_data *st);
+void		msleep(long long milisecond);
 
 #endif
