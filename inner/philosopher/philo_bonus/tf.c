@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   tf.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 16:21:39 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/28 22:41:13 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/29 01:38:10 by sihwan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+void	*tf_die(void *arg)
+{
+	t_data	*data;
+
+	data = (t_data *)arg;
+	sem_wait(data->die);
+	data[0].is_die = 1;
+	printf("bye");
+	for (int j = data->args[0]; j >= 1; j--)
+		kill(data[j].philo, SIGKILL);
+	sem_close(data[0].forks);
+	sem_close(data[0].time_sem);
+	sem_close(data[0].print_sem);
+	sem_close(data[0].full_sem);
+	sem_close(data[0].die);
+	sem_unlink("full_sem");
+	sem_unlink("die");
+	sem_unlink("forks");
+	sem_unlink("print");
+	sem_unlink("time");
+	printf("종료합니다요d\n");
+	exit(0);
+}
 
 void	*tf_main(void *arg)
 {
@@ -18,10 +42,14 @@ void	*tf_main(void *arg)
 	int		i;
 	
 	data = (t_data *)arg;
+	if (data->args[4] == 0)
+		return (NULL);
 	i = data->args[0];
 	while (i--)
 		sem_wait(data->full_sem);
-	sem_wait(data->time_sem);
+	sem_wait(data->print_sem);
+	// sem_post(data->die);
+	// return (NULL);
 	for (int j = data->args[0]; j >= 1; j--)
 		kill(data[j].philo, SIGKILL);
 	sem_close(data->forks);
@@ -36,7 +64,7 @@ void	*tf_main(void *arg)
 	sem_unlink("time");
 	printf("종료합니다요1\n");
 	exit(0);
-	return (NULL);
+	// return (NULL);
 }
 
 void	*tf(void *arg)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:15:26 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/28 22:42:57 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/29 01:32:35 by sihwan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	set_data(t_data *data, int *args, pthread_t *thrd)
 	sem_t			*print_sem;
 	sem_t			*time_sem;
 	sem_t			*full_sem;
-	// sem_t			*start_sem;
 	int				i;
 	struct timeval	start;
 
@@ -35,6 +34,7 @@ void	set_data(t_data *data, int *args, pthread_t *thrd)
 	time_sem = sem_open("time", O_CREAT, 0666, 1);
 	while (i <= args[0])
 	{
+		data[i].is_die = 0;
 		data[i].cnt_eat = 0;
 		data[i].full_sem = full_sem;
 		data[i].start = start;
@@ -85,23 +85,30 @@ int main(int argc, char **argv)
 		}
 		i++;
 	}
-	msleep(60);
+	msleep(args[1] * 2);
+
+	pthread_t main2;
 	pthread_create(data[0].thrd, NULL, tf_main, &data[0]);
-	pthread_detach(*data[0].thrd);
-	sem_wait(die);
-	for (int j = args[0]; j >= 1; j--)
-		kill(data[j].philo, SIGKILL);
-	sem_close(data[0].forks);
-	sem_close(data[0].time_sem);
-	sem_close(data[0].print_sem);
-	sem_close(data[0].full_sem);
-	sem_close(data[0].die);
-	sem_unlink("full_sem");
-	sem_unlink("die");
-	sem_unlink("forks");
-	sem_unlink("print");
-	sem_unlink("time");
-	printf("종료합니다요\n");
+	pthread_create(&main2, NULL, tf_die, &data[0]);
+	pthread_join(*data[0].thrd, NULL);
+	pthread_join(main2, NULL);
+	// printf("zz");
+	// sem_wait(die);
+	// data[0].is_die = 1;
+	// for (int j = args[0]; j >= 1; j--)
+	// 	kill(data[j].philo, SIGKILL);
+	
+	// sem_close(data[0].forks);
+	// sem_close(data[0].time_sem);
+	// sem_close(data[0].print_sem);
+	// sem_close(data[0].full_sem);
+	// sem_close(data[0].die);
+	// sem_unlink("full_sem");
+	// sem_unlink("die");
+	// sem_unlink("forks");
+	// sem_unlink("print");
+	// sem_unlink("time");
+	printf("종료합니다요123\n");
 	exit(0);
 }	
 

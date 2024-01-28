@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arguments.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:59:10 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/28 22:28:38 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/29 01:13:14 by sihwan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	*get_args(int argc, char **argv)
 	if (!args)
 		return (NULL);
 	i = 0;
-	args[4] = -1;
+	args[4] = 0;
 	while (i < argc - 1)
 	{
 		args[i] = ft_atoi(argv[i + 1]);

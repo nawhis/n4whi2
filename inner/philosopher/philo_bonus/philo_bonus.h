@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:15:53 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/28 21:07:21 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/29 01:01:20 by sihwan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_data
 	pid_t			philo;
 	int				*args;
 	int				num;
+	int				is_die;
 	sem_t			*forks;
 	sem_t			*print_sem;
 	sem_t			*time_sem;
@@ -56,5 +57,6 @@ long long	timetable(t_data *st);
 void		msleep(long long milisecond);
 long long	time_last_eat(t_data *st);
 void		*tf_main(void *arg);
+void	*tf_die(void *arg);
 
 #endif

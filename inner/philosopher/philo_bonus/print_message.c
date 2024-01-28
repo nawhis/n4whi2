@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:55:18 by sihwan            #+#    #+#             */
-/*   Updated: 2024/01/28 21:14:56 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/29 01:37:00 by sihwan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ void	message_func_e(t_data *data, int time)
 	printf("%lld %d is eating\n", timetable(data), data->num);
 	data->cnt_eat++;
 	sem_post(data->print_sem);
-	if (data->args[4] != -1 && data->cnt_eat == data->args[4])
+	if (data->args[4] != 0 && data->cnt_eat == data->args[4])
+	{
 		sem_post(data->full_sem);
+		printf("did it!\n");
+	}
 	msleep(time);
 }
 
