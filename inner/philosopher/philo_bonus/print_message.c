@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:55:18 by sihwan            #+#    #+#             */
-/*   Updated: 2024/01/27 23:09:30 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/28 21:14:56 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	message_func_e(t_data *data, int time)
 	gettimeofday(&last_eat, NULL);
 	data->last_eat = last_eat;
 	printf("%lld %d is eating\n", timetable(data), data->num);
-	sem_post(data->print_sem);	
+	data->cnt_eat++;
+	sem_post(data->print_sem);
+	if (data->args[4] != -1 && data->cnt_eat == data->args[4])
+		sem_post(data->full_sem);
 	msleep(time);
 }
 

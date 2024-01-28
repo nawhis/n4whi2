@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:50:31 by sihwan            #+#    #+#             */
-/*   Updated: 2024/01/27 23:09:31 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/28 22:07:04 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ long long	time_last_eat(t_data *st)
 				(1000000 + tmp.tv_usec - st->last_eat.tv_usec)) / 1000;
 	if (difftime > st->args[1])
 	{
-		*(st->is_die) = 1;
+		sem_wait(st->print_sem);
 		difftime = ((tmp.tv_sec - st->start.tv_sec - 1) * 1000000 + \
 				(1000000 + tmp.tv_usec - st->start.tv_usec)) / 1000;
 		printf("%lld %d is died\n", difftime, st->num);
+		sem_post(st->print_sem);
 		return (-1);
 	}
 	sem_post(st->time_sem);

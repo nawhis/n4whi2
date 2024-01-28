@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:59:10 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/26 13:13:35 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/28 22:28:38 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (i > 10)
-			return (-1);
+			exit(1);	
 		val = 10 * val + str[i++] - '0';
 	}
 	if (!(sign * val >= -2147483648 && sign * val <= 2147483647) || \
 	(i == 0 && str[i] == '\0') || str[i] != '\0')
-		return (-1);
+		exit(1);
+	if (sign * val <= 0)
+		exit(1);
 	return (sign * val);
 }
 

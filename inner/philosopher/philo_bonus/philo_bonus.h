@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:15:53 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/27 23:09:34 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/28 21:07:21 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ typedef struct s_data
 	sem_t			*forks;
 	sem_t			*print_sem;
 	sem_t			*time_sem;
+	sem_t			*die;
+	sem_t			*full_sem;
+	int				cnt_eat;
 	struct timeval 	start;
 	struct timeval	last_eat;
-	int				*is_die;
 }	t_data;
 
 int			*get_args(int argc, char **argv);
@@ -53,5 +55,6 @@ void		message_func_t(t_data *data);
 long long	timetable(t_data *st);
 void		msleep(long long milisecond);
 long long	time_last_eat(t_data *st);
+void		*tf_main(void *arg);
 
 #endif

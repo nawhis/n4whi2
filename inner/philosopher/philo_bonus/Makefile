@@ -3,7 +3,7 @@ SRCS = main.c print_message.c tf.c time_control.c arguments.c
 OBJS = $(SRCS:.c=.o)
 HEAD = philo_bonus.h
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g 
 
 all : $(NAME)
 
