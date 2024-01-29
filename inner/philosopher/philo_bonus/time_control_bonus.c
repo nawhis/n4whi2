@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_control.c                                     :+:      :+:    :+:   */
+/*   time_control_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:50:31 by sihwan            #+#    #+#             */
-/*   Updated: 2024/01/29 01:31:19 by sihwan           ###   ########.fr       */
+/*   Updated: 2024/01/29 21:14:08 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ long long	timetable(t_data *st)
 	struct timeval		end;
 	long long			difftime;
 
-	sem_wait(st->time_sem);
 	gettimeofday(&end, NULL);
 	difftime = ((end.tv_sec - st->start.tv_sec - 1) * 1000000 + \
 				(1000000 + end.tv_usec - st->start.tv_usec)) / 1000;
-	sem_post(st->time_sem);
 	return (difftime);
 }
 
@@ -30,20 +28,19 @@ long long	time_last_eat(t_data *st)
 	struct timeval	tmp;
 	long long		difftime;
 
-	sem_wait(st->time_sem);
+	sem_wait(st->print_sem);
 	gettimeofday(&tmp, NULL);
 	difftime = ((tmp.tv_sec - st->last_eat.tv_sec - 1) * 1000000 + \
 				(1000000 + tmp.tv_usec - st->last_eat.tv_usec)) / 1000;
 	if (difftime > st->args[1])
 	{
-		sem_wait(st->print_sem);
 		difftime = ((tmp.tv_sec - st->start.tv_sec - 1) * 1000000 + \
 				(1000000 + tmp.tv_usec - st->start.tv_usec)) / 1000;
+		msleep(1000);
 		printf("%lld %d is died\n", difftime, st->num);
-		sem_post(st->print_sem);
 		return (-1);
 	}
-	sem_post(st->time_sem);
+	sem_post(st->print_sem);
 	return (difftime);
 }
 

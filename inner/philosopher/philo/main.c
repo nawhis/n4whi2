@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 18:46:14 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/26 15:50:30 by sihkang          ###   ########.fr       */
+/*   Updated: 2024/01/29 19:12:31 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ int	main(int argc, char **argv)
 	free_func(philo, st, fork, args);
 	return (0);
 }
-

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arguments.c                                        :+:      :+:    :+:   */
+/*   arguments_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sihwan <sihwan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:59:10 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/29 01:13:14 by sihwan           ###   ########.fr       */
+/*   Updated: 2024/01/29 21:14:14 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (i > 10)
-			exit(1);	
+			exit(1);
 		val = 10 * val + str[i++] - '0';
 	}
 	if (!(sign * val >= -2147483648 && sign * val <= 2147483647) || \
@@ -45,9 +45,7 @@ int	*get_args(int argc, char **argv)
 	int	*args;
 	int	i;
 
-	args = (int *)malloc(sizeof(int) * (5));
-	if (!args)
-		return (NULL);
+	args = (int *)malloc2(sizeof(int) * (5));
 	i = 0;
 	args[4] = 0;
 	while (i < argc - 1)
@@ -61,4 +59,14 @@ int	*get_args(int argc, char **argv)
 		i++;
 	}
 	return (args);
+}
+
+void	*malloc2(int size)
+{
+	void	*ptr;
+
+	ptr = malloc(size);
+	if (!ptr)
+		exit(-1);
+	return (ptr);
 }
