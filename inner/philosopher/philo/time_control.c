@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:59:58 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/26 11:48:43 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/30 15:51:04 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ long long	time_last_eat(t_tt *st)
 	if (difftime > st->args[1])
 	{
 		pthread_mutex_lock(st->print_mutex);
+		pthread_mutex_lock(st->flag_mutex);
 		st->flag_stop[0]++;
+		pthread_mutex_unlock(st->flag_mutex);
 		pthread_mutex_unlock(st->print_mutex);
 		pthread_mutex_unlock(st->time);
 		return (-1);

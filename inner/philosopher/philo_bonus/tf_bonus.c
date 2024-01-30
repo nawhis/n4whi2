@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 16:21:39 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/29 21:14:09 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/30 18:16:56 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*tf_main(void *arg)
 			return (NULL);
 	}
 	sem_post(data->die);
-	clear_children(data, data->args);
+	
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 18:46:14 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/29 19:12:31 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/30 15:51:08 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	main(int argc, char **argv)
 		free_func(philo, st, fork, args);
 		return (-1);
 	}
-	if (philo_create(st, fork, args, philo))
-		free_two(&st[0]);
-	else
+	if (!philo_create(st, fork, args, philo))
 		monitoring(st, args);
+	else
+		free_two(&st[0]);
 	free_func(philo, st, fork, args);
 	return (0);
 }

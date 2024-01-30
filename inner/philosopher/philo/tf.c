@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:08:23 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/26 12:30:16 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/30 17:07:32 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,17 @@ void	tf_odd(t_tt *philo_st)
 	{
 		pthread_mutex_lock(philo_st->fork_right);
 		if (message_func_f(philo_st) == -1)
+		{
+			pthread_mutex_unlock(philo_st->fork_right);
 			break ;
+		}
 		pthread_mutex_lock(philo_st->fork_left);
 		if (message_func_f(philo_st) == -1)
+		{
+			pthread_mutex_unlock(philo_st->fork_right);
+			pthread_mutex_unlock(philo_st->fork_left);
 			break ;
+		}
 		message_func_e(philo_st);
 		count_eat(philo_st);
 		gettimeofday(&philo_st->last_eat, NULL);
@@ -56,10 +63,17 @@ void	tf_even(t_tt *philo_st)
 	{
 		pthread_mutex_lock(philo_st->fork_right);
 		if (message_func_f(philo_st) == -1)
+		{
+			pthread_mutex_unlock(philo_st->fork_right);
 			break ;
+		}
 		pthread_mutex_lock(philo_st->fork_left);
 		if (message_func_f(philo_st) == -1)
+		{
+			pthread_mutex_unlock(philo_st->fork_right);
+			pthread_mutex_unlock(philo_st->fork_left);
 			break ;
+		}
 		message_func_e(philo_st);
 		count_eat(philo_st);
 		gettimeofday(&philo_st->last_eat, NULL);
