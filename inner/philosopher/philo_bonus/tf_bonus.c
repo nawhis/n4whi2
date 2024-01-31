@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 16:21:39 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/30 18:16:56 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/31 18:42:28 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*tf_main(void *arg)
 	int		i;
 
 	data = (t_data *)arg;
-	if (data->args[4] == 0)
+	if (data->args[4] == 0 || data->args[0] == 1)
 		return (NULL);
 	i = data->args[0];
 	while (i--)
@@ -33,7 +33,6 @@ void	*tf_main(void *arg)
 			return (NULL);
 	}
 	sem_post(data->die);
-	
 	return (NULL);
 }
 

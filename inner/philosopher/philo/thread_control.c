@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 15:01:07 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/30 20:13:14 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/31 18:42:53 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,16 @@ void	remove_thread(t_tt *st)
 	pthread_mutex_destroy(st[i].time);
 	pthread_mutex_destroy(st[i].cnt_eat_mutex);
 	pthread_mutex_destroy(st[i].print_mutex);
+	pthread_mutex_destroy(st[i].flag_mutex);
+	free(st[i].flag_mutex);
 	free(st[i].time);
 	free(st[i].cnt_eat_mutex);
 	free(st[i].print_mutex);
 	free(st[i].flag_stop);
 	while (i < nums)
 	{
-		pthread_mutex_destroy(st[i].fork_right);
 		pthread_join(st[i].philo, NULL);
+		pthread_mutex_destroy(st[i].fork_right);
 		i++;
 	}
 	return ;

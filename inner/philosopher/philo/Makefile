@@ -3,7 +3,7 @@ SRCS = main.c arguments.c monitoring.c print_message.c tf.c thread_control.c tim
 OBJS = $(SRCS:.c=.o)
 HEAD = philo.h
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 

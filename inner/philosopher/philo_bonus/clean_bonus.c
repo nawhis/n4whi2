@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 18:59:35 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/30 18:05:48 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/31 18:42:31 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	free_all(int *args, pthread_t *thrd, t_data *data)
 void	close_for_exit(t_data *data, int *args, pthread_t *thrd)
 {
 	die_flag_setting(data);
-	clear_children(data, args);
 	close_all(data[0]);
+	clear_children(data, args);
 	unlink_all();
 	free_all(args, thrd, data);
 	return ;

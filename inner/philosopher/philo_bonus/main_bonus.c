@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 15:15:26 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/30 18:13:31 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/31 18:42:30 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int	main(int argc, char **argv)
 	msleep(60);
 	if (pthread_create(data[0].thrd, NULL, tf_main, &data[0]))
 		sem_post(data->die);
+	pthread_detach(*data[0].thrd);
 	sem_wait(data->die);
-	pthread_join(*data[0].thrd, NULL);
 	close_for_exit(data, args, thrd);
+	msleep(1000);
 	exit(0);
 }	

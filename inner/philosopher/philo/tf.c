@@ -6,7 +6,7 @@
 /*   By: sihkang <sihkang@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 16:08:23 by sihkang           #+#    #+#             */
-/*   Updated: 2024/01/30 17:07:32 by sihkang          ###   ########seoul.kr  */
+/*   Updated: 2024/01/31 18:42:52 by sihkang          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,14 @@ void	tf_odd(t_tt *philo_st)
 {
 	while (1)
 	{
-		pthread_mutex_lock(philo_st->fork_right);
-		if (message_func_f(philo_st) == -1)
-		{
-			pthread_mutex_unlock(philo_st->fork_right);
-			break ;
-		}
 		pthread_mutex_lock(philo_st->fork_left);
 		if (message_func_f(philo_st) == -1)
-		{
-			pthread_mutex_unlock(philo_st->fork_right);
-			pthread_mutex_unlock(philo_st->fork_left);
 			break ;
-		}
-		message_func_e(philo_st);
+		pthread_mutex_lock(philo_st->fork_right);
+		if (message_func_f(philo_st) == -1)
+			break ;
+		if (message_func_e(philo_st) == -1)
+			break ;
 		count_eat(philo_st);
 		gettimeofday(&philo_st->last_eat, NULL);
 		msleep(philo_st->args[2] * 1000);
@@ -57,29 +51,23 @@ void	tf_odd(t_tt *philo_st)
 
 void	tf_even(t_tt *philo_st)
 {
-	usleep(100);
+	msleep(philo_st->args[2] / 2);
 	message_func_t(philo_st);
 	while (1)
 	{
 		pthread_mutex_lock(philo_st->fork_right);
 		if (message_func_f(philo_st) == -1)
-		{
-			pthread_mutex_unlock(philo_st->fork_right);
 			break ;
-		}
 		pthread_mutex_lock(philo_st->fork_left);
 		if (message_func_f(philo_st) == -1)
-		{
-			pthread_mutex_unlock(philo_st->fork_right);
-			pthread_mutex_unlock(philo_st->fork_left);
 			break ;
-		}
-		message_func_e(philo_st);
+		if (message_func_e(philo_st) == -1)
+			break;
 		count_eat(philo_st);
 		gettimeofday(&philo_st->last_eat, NULL);
 		msleep(philo_st->args[2] * 1000);
-		pthread_mutex_unlock(philo_st->fork_left);
 		pthread_mutex_unlock(philo_st->fork_right);
+		pthread_mutex_unlock(philo_st->fork_left);
 		if (message_func_s(philo_st) == -1)
 			break ;
 		msleep(philo_st->args[3] * 1000);
